@@ -1,0 +1,1 @@
+ALTER TABLE public.musical_groups ADD COLUMN IF NOT EXISTS group_profile_id uuid REFERENCES public.group_profiles(id) ON DELETE SET NULL;
