@@ -61,6 +61,29 @@ npm run build
    - Start command: `npm start` (si el panel lo solicita)
 7. Reinicia la app desde el panel.
 
+## Despliegue automático (GitHub -> Hostinger)
+
+El repositorio incluye el workflow [`/.github/workflows/hostinger-deploy.yml`](.github/workflows/hostinger-deploy.yml).
+
+Qué hace en cada push a `main`:
+
+1. Ejecuta CI (`npm ci` + `npm run build`).
+2. Si existe el secret `HOSTINGER_DEPLOY_HOOK_URL`, dispara el deploy en Hostinger por webhook.
+
+### Configuración en GitHub
+
+1. Ve a `GitHub > Settings > Secrets and variables > Actions`.
+2. Crea el secret:
+   - `HOSTINGER_DEPLOY_HOOK_URL`: URL de deploy hook de tu app en Hostinger.
+
+### Configuración en Hostinger
+
+1. En tu app Node.js, localiza la opción de **Deploy Hook / Webhook** (si está disponible en tu plan/panel).
+2. Copia esa URL y guárdala en el secret anterior.
+3. Verifica que Hostinger tenga tus variables `VITE_*` y que la app arranque con `server.js`.
+
+Si tu plan no incluye deploy hook, puedes usar la integración nativa de GitHub desde hPanel.
+
 ## Notas
 
 - Si cambias código frontend, vuelve a correr `npm run build` y reinicia.

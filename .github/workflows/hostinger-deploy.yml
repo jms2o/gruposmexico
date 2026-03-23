@@ -1,0 +1,61 @@
+name: CI and Hostinger Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hostinger-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+  deploy_hostinger:
+    needs: build
+    if: ${{ secrets.HOSTINGER_DEPLOY_HOOK_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Hostinger deploy hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.HOSTINGER_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+          status_code="$(curl -sS -o response.txt -w "%{http_code}" -X POST "$DEPLOY_HOOK_URL")"
+          echo "Deploy hook HTTP status: $status_code"
+
+          if [ "$status_code" -lt 200 ] || [ "$status_code" -ge 300 ]; then
+            echo "Hostinger deploy hook failed."
+            cat response.txt
+            exit 1
+          fi
+
+  deploy_skipped:
+    needs: build
+    if: ${{ secrets.HOSTINGER_DEPLOY_HOOK_URL == '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy skipped
+        run: echo "HOSTINGER_DEPLOY_HOOK_URL no configurado. Se omitio el deploy en Hostinger."
+
