@@ -331,7 +331,7 @@ const PublishPage = () => {
                         </div>
 
                         <p className="text-[11px] font-body text-muted-foreground">
-                          💡 Elige la mejor parte de tu video. Los clips cortos (30-60s) funcionan mejor en Reels.
+                           Elige la mejor parte de tu video. Los clips cortos (30-60s) funcionan mejor en Reels.
                         </p>
                       </div>
                     </div>

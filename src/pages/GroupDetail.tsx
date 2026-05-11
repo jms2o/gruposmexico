@@ -17,6 +17,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { stripEmojis, stripEmojisDeep } from "@/lib/text";
 
 import bandaImg from "@/assets/banda-sinaloense.jpg";
 import mariachisImg from "@/assets/mariachis.jpg";
@@ -69,7 +70,7 @@ const GroupDetail = () => {
         .from("group_media").select("*")
         .eq("group_profile_id", groupProfileId).eq("type", "photo")
         .order("created_at", { ascending: false });
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
     enabled: !!groupProfileId,
   });
@@ -84,7 +85,7 @@ const GroupDetail = () => {
         .eq("group_profile_id", groupProfileId)
         .in("type", ["video", "youtube"])
         .order("created_at", { ascending: false });
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
     enabled: !!groupProfileId,
   });
@@ -93,7 +94,7 @@ const GroupDetail = () => {
     queryKey: ["sound-packages-public"],
     queryFn: async () => {
       const { data } = await supabase.from("sound_packages").select("*").eq("visible", true).order("sort_order");
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
   });
 
@@ -102,7 +103,7 @@ const GroupDetail = () => {
     queryFn: async () => {
       if (!group?.category_id) return null;
       const { data } = await supabase.from("categories").select("*").eq("id", group.category_id).maybeSingle();
-      return data;
+      return stripEmojisDeep(data);
     },
     enabled: !!group?.category_id,
   });
@@ -146,8 +147,8 @@ const GroupDetail = () => {
   }
 
   const activePkgId = selectedPackageId || (packages[0]?.id ?? "");
-  const breadcrumbCity = searchParams.get("ciudad") || group.city || "";
-  const breadcrumbState = searchParams.get("estado") || group.state || "";
+  const breadcrumbCity = stripEmojis(searchParams.get("ciudad") || group.city || "");
+  const breadcrumbState = stripEmojis(searchParams.get("estado") || group.state || "");
   const cityParams = new URLSearchParams();
   if (breadcrumbState) cityParams.set("estado", breadcrumbState);
   if (breadcrumbCity) cityParams.set("ciudad", breadcrumbCity);
@@ -158,12 +159,12 @@ const GroupDetail = () => {
 
   const whatsappMessage = encodeURIComponent(
     `Hola, quiero reservar a *${group.name}*\n` +
-    `📦 ${selectedPkg?.name || "Sin paquete"}\n` +
-    `⏱ ${hours} horas\n` +
-    (date ? `📅 ${format(date, "PPP", { locale: es })}\n` : "") +
-    `🕐 ${startTime}\n` +
-    (address ? `📍 ${address}\n` : "") +
-    `💰 Total: $${total.toLocaleString()} MXN`
+    `Paquete: ${selectedPkg?.name || "Sin paquete"}\n` +
+    `Duración: ${hours} horas\n` +
+    (date ? `Fecha: ${format(date, "PPP", { locale: es })}\n` : "") +
+    `Hora: ${startTime}\n` +
+    (address ? `Dirección: ${address}\n` : "") +
+    `Total: $${total.toLocaleString()} MXN`
   );
   const whatsappUrl = `https://wa.me/${num}?text=${whatsappMessage}`;
 

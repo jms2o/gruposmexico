@@ -173,7 +173,7 @@ const MonetizationPanel = ({ password }: { password: string }) => {
                     <td className="py-2 px-2 font-body text-muted-foreground">{b.group_profiles?.group_name || "—"}</td>
                     <td className="py-2 px-2 font-body text-foreground">${Number(b.total).toLocaleString()}</td>
                     <td className="py-2 px-2 font-body text-gold">${Number(b.commission_amount).toLocaleString()}</td>
-                    <td className="py-2 px-2 font-body text-muted-foreground">{b.advance_paid ? "✅" : "⏳"}</td>
+                    <td className="py-2 px-2 font-body text-muted-foreground">{b.advance_paid ? "" : ""}</td>
                     <td className="py-2 px-2">
                       <span className={`px-2 py-0.5 rounded text-xs font-bold ${b.status === "confirmed" ? "bg-primary/20 text-primary" : b.status === "completed" ? "bg-gold/20 text-gold" : "bg-muted text-muted-foreground"}`}>
                         {b.status}

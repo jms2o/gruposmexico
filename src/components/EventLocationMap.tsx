@@ -83,7 +83,7 @@ const EventLocationMap = ({
   useEffect(() => {
     if (!previewMapRef.current || previewMapInstanceRef.current) return;
 
-    const map = L.map(previewMapRef.current, {
+    const previewMapOptions: L.MapOptions & { tap: boolean } = {
       center: selectedCoords,
       zoom: 13,
       zoomControl: false,
@@ -94,9 +94,10 @@ const EventLocationMap = ({
       doubleClickZoom: false,
       boxZoom: false,
       keyboard: false,
-      // @ts-ignore
       tap: false,
-    });
+    };
+
+    const map = L.map(previewMapRef.current, previewMapOptions);
 
     L.tileLayer(TILE_URL, { maxZoom: 19 }).addTo(map);
     L.marker(selectedCoords, { icon: goldIcon, interactive: false }).addTo(map);
@@ -468,7 +469,7 @@ const EventLocationMap = ({
           <div className="bg-card border-t border-border px-4 py-3 pb-8">
             {addressQuery && (
               <p className="text-xs font-body text-muted-foreground mb-2 truncate">
-                📍 {addressQuery}
+                 {addressQuery}
               </p>
             )}
             <button

@@ -230,7 +230,7 @@ const InboxPage = () => {
     await supabase.from("chat_messages").insert({
       event_proposal_id: proposalId,
       sender_type: "system",
-      message: `💳 Solicitud de anticipo\n\nAnticipo requerido: $${depositAmount.toLocaleString()} MXN (${commissionPercent}% del total)\nTotal del servicio: $${priceTotal.toLocaleString()} MXN\n\nEste anticipo confirma la reserva. El saldo restante se paga directamente al músico el día del evento.`,
+      message: `Solicitud de anticipo\n\nAnticipo requerido: $${depositAmount.toLocaleString()} MXN (${commissionPercent}% del total)\nTotal del servicio: $${priceTotal.toLocaleString()} MXN\n\nEste anticipo confirma la reserva. El saldo restante se paga directamente al músico el día del evento.`,
     });
 
     toast.success("Solicitud de anticipo enviada al cliente");
@@ -495,7 +495,7 @@ const InboxPage = () => {
               <div className="flex-1 min-w-0">
                 <p className="font-body font-bold text-foreground text-sm">Chat con cliente</p>
                 <p className="font-body text-xs text-muted-foreground">
-                  {depositPaid ? "🎉 Evento confirmado" : activeProp?.status === "accepted" ? "✅ Propuesta aceptada" : "⏳ Pendiente"}
+                  {depositPaid ? "Evento confirmado" : activeProp?.status === "accepted" ? "Propuesta aceptada" : "Pendiente"}
                 </p>
               </div>
             </div>
@@ -587,10 +587,10 @@ const InboxPage = () => {
   };
 
   const statusLabels: Record<string, string> = {
-    pending: "⏳ Pendiente",
-    confirmed: "✅ Confirmada",
-    cancelled: "❌ Cancelada",
-    completed: "🎉 Completada",
+    pending: "Pendiente",
+    confirmed: "Confirmada",
+    cancelled: "Cancelada",
+    completed: "Completada",
   };
 
   // Separate new requests (not yet proposed) from sent proposals
@@ -726,9 +726,9 @@ const InboxPage = () => {
                               <h4 className="font-body font-bold text-foreground text-sm">{req?.client_name || "Cliente"}</h4>
                               <p className="font-body text-xs text-muted-foreground">{req?.group_type} · {req?.event_type}</p>
                             </div>
-                            <span className="px-2.5 py-1 rounded-lg text-[10px] font-body font-bold border bg-emerald-500/15 text-emerald-400 border-emerald-500/20">
-                              ✅ Enviada
-                            </span>
+                          <span className="px-2.5 py-1 rounded-lg text-[10px] font-body font-bold border bg-emerald-500/15 text-emerald-400 border-emerald-500/20">
+                            Enviada
+                          </span>
                           </div>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
@@ -790,7 +790,7 @@ const InboxPage = () => {
                         </div>
                         <div className="flex flex-col items-end gap-1">
                           <span className="px-2 py-0.5 rounded-lg text-[10px] font-body font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
-                            ✅ Aceptada
+                            Aceptada
                           </span>
                           <span className="text-[10px] text-muted-foreground font-body">
                             ${Number(prop.price_total).toLocaleString()}

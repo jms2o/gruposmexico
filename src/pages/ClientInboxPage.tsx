@@ -315,12 +315,12 @@ const ClientInboxPage = () => {
       {
         event_proposal_id: activeChat,
         sender_type: "system",
-        message: "🎉 ¡Propuesta aceptada! Ya pueden coordinar los detalles del evento por este chat.",
+        message: "¡Propuesta aceptada! Ya pueden coordinar los detalles del evento por este chat.",
       },
       {
         event_proposal_id: activeChat,
         sender_type: "system",
-        message: `✅ Pago confirmado\n\n📍 ${eventReq?.city || ""}${eventReq?.state ? `, ${eventReq.state}` : ""}\n⏱ ${eventReq?.duration_hours || 3} horas\n💰 Total del servicio: $${breakdown.priceTotal.toLocaleString()} MXN\n💳 Anticipo pagado: $${breakdown.depositAmount.toLocaleString()} MXN\n🧾 Tarifa de servicio (5%): $${breakdown.serviceFeeAmount.toLocaleString()} MXN\n💵 Total cobrado hoy: $${breakdown.totalCharge.toLocaleString()} MXN\n\n📋 Se ha generado un contrato digital para este evento.\n\n🔒 Tu anticipo queda seguro en la plataforma hasta que el grupo toque.`,
+        message: `Pago confirmado\n\n${eventReq?.city || ""}${eventReq?.state ? `, ${eventReq.state}` : ""}\n${eventReq?.duration_hours || 3} horas\nTotal del servicio: $${breakdown.priceTotal.toLocaleString()} MXN\nAnticipo pagado: $${breakdown.depositAmount.toLocaleString()} MXN\nTarifa de servicio (5%): $${breakdown.serviceFeeAmount.toLocaleString()} MXN\nTotal cobrado hoy: $${breakdown.totalCharge.toLocaleString()} MXN\n\nSe ha generado un contrato digital para este evento.\n\nTu anticipo queda seguro en la plataforma hasta que el grupo toque.`,
       },
     ]);
 
@@ -328,13 +328,13 @@ const ClientInboxPage = () => {
       await supabase.from("admin_notifications").insert([
         {
           type: "proposal_accepted",
-          title: "✅ Cotización aceptada",
+          title: "Cotización aceptada",
           message: `El cliente ${eventReq?.client_name || paymentData.name} confirmó tu cotización por $${breakdown.priceTotal.toLocaleString()} MXN.`,
           group_profile_id: groupProfile.id,
         },
         {
           type: "payment_received",
-          title: "💳 Pago recibido",
+          title: "Pago recibido",
           message: `Se recibió anticipo de $${breakdown.depositAmount.toLocaleString()} MXN + tarifa de servicio de $${breakdown.serviceFeeAmount.toLocaleString()} MXN.`,
           group_profile_id: groupProfile.id,
         },
@@ -373,7 +373,7 @@ const ClientInboxPage = () => {
               <div className="flex-1 min-w-0">
                 <p className="font-body font-bold text-foreground text-sm truncate">{activeProp.group_profiles?.group_name}</p>
                 <p className="font-body text-xs text-muted-foreground">
-                  {depositPaid ? "🎉 Evento confirmado" : activeProp.status === "accepted" ? "✅ Aceptada" : "⏳ Confirmada"}
+                  {depositPaid ? "Evento confirmado" : activeProp.status === "accepted" ? "Aceptada" : "Confirmada"}
                 </p>
               </div>
             </div>
@@ -436,12 +436,12 @@ const ClientInboxPage = () => {
                   {activeBreakdown && (
                     <div className="rounded-xl border border-gold/25 bg-background/60 p-3 space-y-1.5">
                       <p className="text-xs font-body text-muted-foreground">Evento</p>
-                      <p className="text-sm font-body font-bold text-foreground">📍 {activeEventReq?.city}, {activeEventReq?.state}</p>
+                      <p className="text-sm font-body font-bold text-foreground">{activeEventReq?.city}, {activeEventReq?.state}</p>
                       {activeEventReq?.event_address && (
                         <p className="text-xs font-body text-muted-foreground">{activeEventReq.event_address}</p>
                       )}
-                      <p className="text-sm font-body text-foreground">⏱ {activeBreakdown.duration} horas · {activeEventReq?.start_time || "21:00"}</p>
-                      <p className="text-sm font-body text-foreground">💵 ${activeBreakdown.pricePerHour.toLocaleString()} por hora</p>
+                      <p className="text-sm font-body text-foreground">{activeBreakdown.duration} horas · {activeEventReq?.start_time || "21:00"}</p>
+                      <p className="text-sm font-body text-foreground">${activeBreakdown.pricePerHour.toLocaleString()} por hora</p>
                       <div className="pt-2 mt-2 border-t border-border/60 text-xs font-body space-y-1">
                         <div className="flex justify-between"><span>Subtotal del evento</span><span>${activeBreakdown.priceTotal.toLocaleString()}</span></div>
                         <div className="flex justify-between"><span>Anticipo ({activeBreakdown.commissionInfo.commissionRate}% · {activeBreakdown.commissionInfo.membershipName})</span><span>${activeBreakdown.depositAmount.toLocaleString()}</span></div>
@@ -456,13 +456,13 @@ const ClientInboxPage = () => {
 
                   <div className="flex gap-2">
                     <button onClick={() => setPaymentMethod("card")} className={cn("flex-1 py-2 px-3 rounded-lg border text-center", paymentMethod === "card" ? "bg-gold/10 border-2 border-gold/40" : "bg-muted border-border")}>
-                      <p className="font-body font-bold text-foreground text-xs">💳 Tarjeta</p>
+                      <p className="font-body font-bold text-foreground text-xs">Tarjeta</p>
                     </button>
                     <button onClick={() => setPaymentMethod("apple_pay")} className={cn("flex-1 py-2 px-3 rounded-lg border text-center", paymentMethod === "apple_pay" ? "bg-gold/10 border-2 border-gold/40" : "bg-muted border-border")}>
-                      <p className="font-body text-foreground text-xs">🍎 Apple Pay</p>
+                      <p className="font-body text-foreground text-xs">Apple Pay</p>
                     </button>
                     <button onClick={() => setPaymentMethod("google_pay")} className={cn("flex-1 py-2 px-3 rounded-lg border text-center", paymentMethod === "google_pay" ? "bg-gold/10 border-2 border-gold/40" : "bg-muted border-border")}>
-                      <p className="font-body text-foreground text-xs">📱 Google Pay</p>
+                      <p className="font-body text-foreground text-xs">Google Pay</p>
                     </button>
                   </div>
                   <div>
@@ -572,7 +572,7 @@ const ClientInboxPage = () => {
                       <h3 className="font-body font-bold text-foreground text-sm">{req.group_type} - {new Date(req.event_date).toLocaleDateString("es-MX", { day: "numeric", month: "short" })}</h3>
                       <p className="font-body text-xs text-muted-foreground mt-0.5">{req.city}, {req.state}</p>
                     </div>
-                    <span className="px-2.5 py-1 rounded-lg text-[10px] font-body font-bold bg-gold/15 text-gold border border-gold/20">🟢 Abierta</span>
+                    <span className="px-2.5 py-1 rounded-lg text-[10px] font-body font-bold bg-gold/15 text-gold border border-gold/20">Abierta</span>
                   </div>
 
                   {/* Offer summary */}

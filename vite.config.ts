@@ -21,12 +21,13 @@ function normalizeBasePath(rawBasePath: string | undefined) {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const base = normalizeBasePath(env.VITE_BASE_PATH);
+  const devPort = Number(env.VITE_DEV_PORT || 5173);
 
   return {
     base,
     server: {
       host: "::",
-      port: 8080,
+      port: devPort,
       hmr: {
         overlay: false,
       },

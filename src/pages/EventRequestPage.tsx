@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { useAuth, useClientProfile } from "@/hooks/useAuth";
 import { Slider } from "@/components/ui/slider";
 import EventLocationMap from "@/components/EventLocationMap";
+import type { PostgrestError } from "@supabase/supabase-js";
 
 const GROUP_TYPES = [
   { label: "DJ", icon: Headphones },
@@ -38,6 +39,23 @@ const HOUR_OPTIONS = Array.from({ length: 48 }, (_, i) => {
 
 const PRICE_PER_HOUR_BASE = 1800;
 const PRICE_MAX = 50000;
+
+const createClientToken = () => {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = Math.floor(Math.random() * 16);
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+
+const formatDbError = (error: PostgrestError | null) => {
+  if (!error) return "Error desconocido";
+  const chunks = [error.message, error.details, error.hint, error.code].filter(Boolean);
+  return chunks.join(" | ");
+};
 
 const EventRequestPage = () => {
   const navigate = useNavigate();
@@ -90,33 +108,49 @@ const EventRequestPage = () => {
     if (!form.event_date) { toast.error("Selecciona la fecha del evento"); return; }
 
     setSubmitting(true);
-    const { data, error } = await supabase.from("event_requests").insert({
+    const clientToken = createClientToken();
+    const basePayload = {
       client_name: form.client_name.trim().slice(0, 100),
       group_type: form.group_type,
       state: form.state,
       city: form.city,
-      event_address: form.address.trim() || null,
       event_date: form.event_date.toISOString().split("T")[0],
-      start_time: form.start_time,
       duration_hours: form.duration_hours,
       budget: form.price_per_hour * form.duration_hours,
       event_type: form.event_type,
       description: form.description.trim().slice(0, 500) || null,
+      client_token: clientToken,
+    };
+
+    const payloadV2 = {
+      ...basePayload,
+      event_address: form.address.trim() || null,
+      start_time: form.start_time,
       location_lat: form.location_lat,
       location_lng: form.location_lng,
       client_user_id: user?.id || null,
-    }).select("client_token").single();
+    };
+
+    let { error } = await supabase.from("event_requests").insert(payloadV2);
+
+    // Compatibilidad con esquemas antiguos (sin columnas nuevas)
+    if (error && (error.code === "PGRST204" || error.message.toLowerCase().includes("column"))) {
+      const legacyResult = await supabase.from("event_requests").insert(basePayload);
+      error = legacyResult.error;
+    }
 
     setSubmitting(false);
 
     if (error) {
-      toast.error("Error al publicar solicitud");
+      const detail = formatDbError(error);
+      console.error("Error creando event_request:", error);
+      toast.error("Error al publicar solicitud", { description: detail });
       return;
     }
 
-    if (data?.client_token) {
-      const tokens = JSON.parse(localStorage.getItem("event_tokens") || "[]");
-      tokens.push(data.client_token);
+    const tokens = JSON.parse(localStorage.getItem("event_tokens") || "[]");
+    if (!tokens.includes(clientToken)) {
+      tokens.push(clientToken);
       localStorage.setItem("event_tokens", JSON.stringify(tokens));
     }
 
@@ -331,7 +365,7 @@ const EventRequestPage = () => {
         </button>
 
         <p className="text-[10px] text-muted-foreground font-body text-center pb-4">
-          💬 La comunicación será exclusivamente por el chat de la aplicación
+           La comunicación será exclusivamente por el chat de la aplicación
         </p>
       </div>
     </div>

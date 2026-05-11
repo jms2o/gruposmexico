@@ -7,6 +7,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { useWhatsappNumber } from "@/hooks/useData";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { stripEmojisDeep } from "@/lib/text";
 
 import bandaImg from "@/assets/banda-sinaloense.jpg";
 import mariachisImg from "@/assets/mariachis.jpg";
@@ -29,7 +30,7 @@ const CategoryPage = () => {
     queryFn: async () => {
       if (!id) return null;
       const { data } = await supabase.from("categories").select("*").eq("id", id).maybeSingle();
-      return data;
+      return stripEmojisDeep(data);
     },
     enabled: !!id,
   });
@@ -47,7 +48,7 @@ const CategoryPage = () => {
       if (estado) query = query.eq("state", estado);
       if (ciudad) query = query.eq("city", ciudad);
       const { data } = await query;
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
     enabled: !!id,
   });

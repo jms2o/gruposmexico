@@ -19,6 +19,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const num = whatsappNumber || "5216691234567";
   const waUrl = `https://wa.me/${num}?text=${encodeURIComponent("Hola, quiero información sobre grupos musicales.")}`;
+  const cleanMenuLabel = (label: string) =>
+    label
+      .replace(/(?:\p{Extended_Pictographic}|\p{Regional_Indicator}|\u200D|\uFE0F)/gu, "")
+      .replace(/\s+/g, " ")
+      .trim();
 
   const isMusician = !!groupProfile;
   const isClient = !!clientProfile;
@@ -37,10 +42,10 @@ const Navbar = () => {
 
   const staticLinksTop = [{ label: "Inicio", href: "/", isRoute: true }];
   const categoryLinks = (categories || []).map((c: any) => ({
-    label: c.title, href: `/categoria/${c.id}`, isRoute: true,
+    label: cleanMenuLabel(c.title) || "Categoría", href: `/categoria/${c.id}`, isRoute: true,
   }));
   const staticLinksBottom = [
-    { label: "Todos los grupos", href: "/todos-los-grupos", isRoute: true },
+    { label: "Todos los Grupos", href: "/todos-los-grupos", isRoute: true },
     { label: "Paquetes de Sonido", href: "/paquetes", isRoute: true },
     { label: "Testimonios", href: "/#testimonios", isRoute: false },
     { label: "Contacto", href: "/#cotizar", isRoute: false },
@@ -117,16 +122,16 @@ const Navbar = () => {
           {/* Desktop nav */}
           <ul className="hidden lg:flex items-center gap-0.5">
             {desktopLinks.map((l) => (
-              <li key={l.label}>
+              <li key={l.href}>
                 {l.isRoute ? (
                   <Link to={l.href}
-                    className={`px-3 py-2 rounded-lg text-sm font-body font-medium transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-sm font-body font-medium whitespace-nowrap transition-colors ${
                       scrolled ? "text-muted-foreground hover:text-foreground hover:bg-muted" : "text-white/70 hover:text-white hover:bg-white/10"
                     }`}>{l.label}</Link>
                 ) : (
                   <a href={l.href}
                     onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); handleNavClick(l.href, false); } }}
-                    className={`px-3 py-2 rounded-lg text-sm font-body font-medium transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-sm font-body font-medium whitespace-nowrap transition-colors ${
                       scrolled ? "text-muted-foreground hover:text-foreground hover:bg-muted" : "text-white/70 hover:text-white hover:bg-white/10"
                     }`}>{l.label}</a>
                 )}
@@ -145,7 +150,24 @@ const Navbar = () => {
             <div className="hidden lg:flex items-center gap-3">
               <ThemeToggle scrolled={scrolled} />
               {!isLoggedIn && (
-                <Link to="/auth" className="btn-gold px-5 py-2.5 text-sm">REGISTRAR MI GRUPO</Link>
+                <>
+                  <Link
+                    to="/auth"
+                    className={`shrink-0 whitespace-nowrap px-4 py-2.5 rounded-xl text-xs xl:text-sm font-body font-semibold transition-colors ${
+                      scrolled
+                        ? "border border-border text-foreground hover:bg-muted"
+                        : "border border-white/25 text-white hover:bg-white/10"
+                    }`}
+                  >
+                    Iniciar sesión
+                  </Link>
+                  <Link
+                    to="/auth"
+                    className="btn-gold shrink-0 whitespace-nowrap px-4 xl:px-5 py-2.5 text-xs xl:text-sm leading-none"
+                  >
+                    Registrar Grupo
+                  </Link>
+                </>
               )}
               <a href={waUrl} target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-whatsapp flex items-center justify-center text-white hover:bg-whatsapp-hover transition-colors">

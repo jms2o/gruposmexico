@@ -257,7 +257,7 @@ const ClientDashboard = () => {
             <div className="max-w-5xl">
               <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-1">Dashboard</h1>
               <p className="text-muted-foreground font-body text-sm mb-6">
-                Hola, {clientProfile?.full_name || "Cliente"} 👋
+                Hola, {clientProfile?.full_name || "Cliente"} 
               </p>
 
               {/* Stats cards */}
@@ -346,11 +346,11 @@ const ClientDashboard = () => {
                             <div className="flex items-center gap-1.5">
                               {event.payment ? (
                                 <span className="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 font-body font-bold text-[10px] flex items-center gap-1">
-                                  ✅ Anticipo pagado
+                                   Anticipo pagado
                                 </span>
                               ) : (
                                 <span className="px-2.5 py-1 rounded-lg bg-gold/15 text-gold border border-gold/20 font-body font-bold text-[10px]">
-                                  ⏳ Pendiente
+                                   Pendiente
                                 </span>
                               )}
                             </div>
@@ -439,7 +439,7 @@ const ClientDashboard = () => {
                       </div>
                       <div className="text-right">
                         <p className="font-body font-bold text-emerald-400 text-sm">${Number(pay.amount).toLocaleString()} MXN</p>
-                        <p className="font-body text-[10px] text-muted-foreground">✅ Completado</p>
+                        <p className="font-body text-[10px] text-muted-foreground"> Completado</p>
                       </div>
                     </div>
                   ))}

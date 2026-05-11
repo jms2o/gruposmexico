@@ -313,11 +313,11 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
           <div className="flex gap-3 mt-6">
             <button onClick={() => { approveProfile(previewProfileId); setPreviewProfileId(null); }}
               className="flex-1 py-4 rounded-2xl bg-primary text-primary-foreground font-body font-bold text-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-              <UserCheck className="w-5 h-5" /> ✅ Aprobar perfil
+              <UserCheck className="w-5 h-5" />  Aprobar perfil
             </button>
             <button onClick={() => { rejectProfile(previewProfileId); setPreviewProfileId(null); }}
               className="flex-1 py-4 rounded-2xl bg-destructive text-destructive-foreground font-body font-bold text-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-              <UserX className="w-5 h-5" /> ❌ Rechazar perfil
+              <UserX className="w-5 h-5" />  Rechazar perfil
             </button>
           </div>
         )}
@@ -365,7 +365,7 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
                   </p>
                   {p.description && <p className="font-body text-sm text-muted-foreground mt-2 line-clamp-2">{p.description}</p>}
                 </div>
-                <span className="px-3 py-1 rounded-lg bg-gold/20 text-gold font-body text-xs font-bold">🟡 Pendiente</span>
+                <span className="px-3 py-1 rounded-lg bg-gold/20 text-gold font-body text-xs font-bold"> Pendiente</span>
               </div>
               <div className="flex gap-2">
                 <button onClick={() => setPreviewProfileId(p.id)}
@@ -374,11 +374,11 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
                 </button>
                 <button onClick={() => approveProfile(p.id)}
                   className="flex-1 px-4 py-3 rounded-xl bg-primary text-primary-foreground font-body font-bold text-sm hover:opacity-90 flex items-center justify-center gap-2">
-                  ✅ Aprobar perfil
+                   Aprobar perfil
                 </button>
                 <button onClick={() => rejectProfile(p.id)}
                   className="px-4 py-3 rounded-xl bg-destructive/10 text-destructive font-body font-bold text-sm hover:bg-destructive/20 flex items-center justify-center gap-2">
-                  ❌ Rechazar
+                   Rechazar
                 </button>
               </div>
             </div>
@@ -410,7 +410,7 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
                       s.status === "pending" && "bg-gold/90 text-accent-foreground",
                       s.status === "approved" && "bg-primary/90 text-primary-foreground",
                       s.status === "rejected" && "bg-destructive/90 text-destructive-foreground")}>
-                      {s.status === "pending" ? "🟡 Pendiente" : s.status === "approved" ? "🟢 Aprobado" : "🔴 Rechazado"}
+                      {s.status === "pending" ? " Pendiente" : s.status === "approved" ? " Aprobado" : " Rechazado"}
                     </span>
                   </div>
 
@@ -419,7 +419,7 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
                     <div className="mb-3">
                       <div className="flex items-center gap-2 mb-2">
                         {s.type === "main_photo" && <span className="text-xs font-body font-bold text-gold flex items-center gap-1"><Star className="w-3 h-3" /> Cambio de foto principal</span>}
-                        {s.type === "photo" && <span className="text-xs font-body text-muted-foreground">📷 Nueva foto</span>}
+                        {s.type === "photo" && <span className="text-xs font-body text-muted-foreground"> Nueva foto</span>}
                       </div>
                       <img src={content.url} alt="" className="w-full max-w-sm rounded-xl object-cover aspect-video" />
                     </div>
@@ -437,7 +437,7 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
 
                   {s.type === "pricing" && (
                     <div className="mb-3 bg-muted rounded-xl p-4">
-                      <p className="font-body text-xs font-bold text-muted-foreground mb-2">💰 Cambio de precio solicitado</p>
+                      <p className="font-body text-xs font-bold text-muted-foreground mb-2"> Cambio de precio solicitado</p>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="bg-destructive/10 rounded-lg p-3">
                           <p className="font-body text-xs text-destructive font-semibold mb-1">Anterior</p>
@@ -455,7 +455,7 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
 
                   {s.type === "description" && (
                     <div className="mb-3 bg-muted rounded-xl p-4">
-                      <p className="font-body text-xs font-bold text-muted-foreground mb-2">📝 Cambio de descripción</p>
+                      <p className="font-body text-xs font-bold text-muted-foreground mb-2"> Cambio de descripción</p>
                       <div className="space-y-2">
                         {content.previous_description && (
                           <div className="bg-destructive/10 rounded-lg p-3">
@@ -473,7 +473,7 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
 
                   {s.type === "category" && (
                     <div className="mb-3 bg-muted rounded-xl p-4">
-                      <p className="font-body text-xs font-bold text-muted-foreground mb-2">📂 Cambio de categoría</p>
+                      <p className="font-body text-xs font-bold text-muted-foreground mb-2"> Cambio de categoría</p>
                       <div className="flex items-center gap-3">
                         <span className="px-3 py-1.5 rounded-lg bg-destructive/10 text-destructive font-body text-sm font-semibold">{content.previous_category}</span>
                         <span className="text-muted-foreground">→</span>
@@ -488,11 +488,11 @@ const ApprovalsPanel = ({ password }: { password: string }) => {
                       <>
                         <button onClick={() => approveSubmission(s)}
                           className="flex-1 px-3 py-2.5 rounded-xl bg-primary text-primary-foreground font-body font-bold text-sm hover:opacity-90">
-                          ✅ Aprobar
+                           Aprobar
                         </button>
                         <button onClick={() => rejectSubmission(s.id)}
                           className="flex-1 px-3 py-2.5 rounded-xl bg-destructive text-destructive-foreground font-body font-bold text-sm hover:opacity-90">
-                          ❌ Rechazar
+                           Rechazar
                         </button>
                       </>
                     )}

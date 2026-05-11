@@ -219,7 +219,7 @@ const VideoSection = ({
                 <div className="flex-1 min-w-0 space-y-1">
                   <p className="font-body font-semibold text-sm text-foreground truncate">{v.title || "Video"}</p>
                   <p className="font-body text-xs text-muted-foreground truncate">
-                    {v.type === "youtube" ? "▶️ YouTube" : "📹 Video MP4"} · {v.uploaded_by === "admin" ? "Admin" : "Grupo"}
+                    {v.type === "youtube" ? " YouTube" : " Video MP4"} · {v.uploaded_by === "admin" ? "Admin" : "Grupo"}
                   </p>
                 </div>
                 <button onClick={() => onDelete(v.id)} className="p-1.5 rounded-full bg-destructive text-destructive-foreground hover:opacity-80">

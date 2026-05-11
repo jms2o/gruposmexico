@@ -63,7 +63,7 @@ const FileUploadField = ({ value, onChange, password, accept = "image/*", label 
           disabled={uploading}
           className="px-3 py-2 rounded-lg bg-accent text-accent-foreground font-body text-xs font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center gap-1"
         >
-          {uploading ? <span className="animate-spin">⏳</span> : <Upload className="w-3.5 h-3.5" />}
+          {uploading ? <span className="animate-spin"></span> : <Upload className="w-3.5 h-3.5" />}
           {uploading ? "..." : label}
         </button>
       </div>

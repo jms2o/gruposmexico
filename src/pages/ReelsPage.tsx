@@ -21,6 +21,7 @@ const ytApiReady = new Promise<void>((resolve) => {
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import ReelCommentsPanel from "@/components/reels/ReelCommentsPanel";
+import { stripEmojis } from "@/lib/text";
 
 /* ── Types ── */
 interface ReelData {
@@ -71,7 +72,9 @@ const fetchReels = async (): Promise<ReelData[]> => {
       if (!profile) return null;
       return {
         id: m.id, url: m.url, type: m.type as "video" | "youtube", title: m.title,
-        groupName: profile.group_name, city: profile.city, groupType: profile.group_type,
+        groupName: stripEmojis(profile.group_name || ""),
+        city: stripEmojis(profile.city || ""),
+        groupType: stripEmojis(profile.group_type || ""),
         pricePerHour: profile.price_per_hour, minHours: profile.min_hours,
         groupProfileId: m.group_profile_id, musicalGroupId: mgMap.get(m.group_profile_id) || null,
         clipStart: m.clip_start, clipEnd: m.clip_end,
@@ -361,7 +364,7 @@ function ReelCard({ reel, isActive, globalMuted, onUnmute }: {
         <button
           onClick={async () => {
             const shareUrl = `${window.location.origin}/reels`;
-            const shareData = { title: `🎶 ${reel.groupName} en GruposMéxico`, text: `Mira a ${reel.groupName} en GruposMéxico 🎵`, url: shareUrl };
+            const shareData = { title: `${reel.groupName} en GruposMéxico`, text: `Mira a ${reel.groupName} en GruposMéxico`, url: shareUrl };
             if (navigator.share) { try { await navigator.share(shareData); } catch {} }
             else { await navigator.clipboard.writeText(`${shareData.text} ${shareUrl}`); toast.success("Enlace copiado"); }
           }}

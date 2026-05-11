@@ -145,7 +145,7 @@ const MenuManager = ({ password }: Props) => {
       {/* Manual Featured/Sections Control */}
       <div className="space-y-4">
         <h3 className="font-display font-bold text-foreground text-xl flex items-center gap-2">
-          ⭐ Grupos Destacados (Manual)
+           Grupos Destacados (Manual)
         </h3>
         <p className="font-body text-sm text-muted-foreground">
           Selecciona qué grupos aparecen en la sección "Destacados" de la página principal.
@@ -166,7 +166,7 @@ const MenuManager = ({ password }: Props) => {
                 className={cn("px-3 py-1.5 rounded-lg font-body text-xs font-bold transition-colors",
                   g.featured ? "bg-gold/20 text-gold" : "bg-muted text-muted-foreground hover:text-foreground")}
               >
-                {g.featured ? "⭐ Destacado" : "Destacar"}
+                {g.featured ? " Destacado" : "Destacar"}
               </button>
             </div>
           ))}

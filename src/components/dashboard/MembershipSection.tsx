@@ -109,7 +109,7 @@ const MembershipSection = ({ profile, membership }: Props) => {
                     <li key={i} className="flex items-start gap-2.5 font-body text-sm text-foreground">
                       {tier === "premium" ? (
                         <span className="w-4 h-4 flex-shrink-0 mt-0.5 text-gold">
-                          {i === 0 ? "📍" : i === 1 ? "⭐" : i === 2 ? "✅" : "✅"}
+                          {i === 0 ? "" : i === 1 ? "" : i === 2 ? "" : ""}
                         </span>
                       ) : (
                         <Check className={cn(

@@ -172,7 +172,7 @@ const GroupRegister = () => {
               {loading ? "Registrando..." : "Registrar grupo"}
             </button>
             <p className="text-center text-xs text-muted-foreground font-body">
-              Tu perfil quedará en estado <span className="text-gold font-semibold">🟡 Pendiente de aprobación</span> hasta que el administrador lo revise.
+              Tu perfil quedará en estado <span className="text-gold font-semibold"> Pendiente de aprobación</span> hasta que el administrador lo revise.
             </p>
           </form>
         </div>

@@ -43,7 +43,7 @@ const AdminRanking = ({ password }: { password: string }) => {
                 </div>
                 <p className="font-display font-bold text-sm" style={{ color: "hsl(0 0% 95%)" }}>{g.name}</p>
                 <p className="font-body text-xs mt-1" style={{ color: "hsl(230 10% 50%)" }}>{g.city}</p>
-                <p className="font-body text-sm font-semibold mt-2" style={{ color: "hsl(40 65% 55%)" }}>⭐ {g.count} eventos</p>
+                <p className="font-body text-sm font-semibold mt-2" style={{ color: "hsl(40 65% 55%)" }}> {g.count} eventos</p>
                 <p className="font-body text-xs" style={{ color: "hsl(142 70% 55%)" }}>${g.income.toLocaleString()}</p>
               </div>
             );

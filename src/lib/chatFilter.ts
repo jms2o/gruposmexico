@@ -31,4 +31,4 @@ export function sanitizeChatMessage(message: string): string {
   return sanitized;
 }
 
-export const CONTACT_WARNING = "⚠️ Por seguridad, los datos de contacto se desbloquean cuando el cliente paga el anticipo y el evento se confirma.";
+export const CONTACT_WARNING = " Por seguridad, los datos de contacto se desbloquean cuando el cliente paga el anticipo y el evento se confirma.";

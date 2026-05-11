@@ -7,6 +7,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { useWhatsappNumber, useVisibleCategories } from "@/hooks/useData";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { stripEmojis, stripEmojisDeep } from "@/lib/text";
 
 import bandaImg from "@/assets/banda-sinaloense.jpg";
 import mariachisImg from "@/assets/mariachis.jpg";
@@ -44,12 +45,12 @@ const AllGroupsPage = () => {
       if (estado) query = query.eq("state", estado);
       if (ciudad) query = query.eq("city", ciudad);
       const { data } = await query;
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
   });
 
   const selectedTitle = selectedCategory
-    ? categories?.find((c: any) => c.id === selectedCategory)?.title
+    ? stripEmojis(categories?.find((c: any) => c.id === selectedCategory)?.title || "")
     : null;
   const orderedCategories = [...(categories || [])].sort((a: any, b: any) => {
     const aIsDj = String(a.title || "").toLowerCase().includes("dj");

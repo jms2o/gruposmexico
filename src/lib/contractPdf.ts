@@ -50,7 +50,7 @@ export function downloadContractPdf(contract: ContractData) {
 </head>
 <body>
   <div class="header">
-    <h1>🎵 CONTRATO DE SERVICIO MUSICAL</h1>
+    <h1> CONTRATO DE SERVICIO MUSICAL</h1>
     <p>Grupos México · Plataforma de contratación musical</p>
   </div>
   <div class="contract-id">Contrato No. ${contract.id.slice(0, 8).toUpperCase()}</div>

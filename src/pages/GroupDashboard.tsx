@@ -159,8 +159,8 @@ const GroupDashboard = () => {
                 <div className="space-y-2 max-h-96 overflow-y-auto">
                   {(submissions || []).map((s: any) => {
                     const typeLabels: Record<string, string> = {
-                      photo: "📷 Foto", video: "🎥 Video", main_photo: "⭐ Foto principal",
-                      description: "📝 Descripción", pricing: "💰 Precio", category: "📂 Categoría",
+                      photo: " Foto", video: " Video", main_photo: " Foto principal",
+                      description: " Descripción", pricing: " Precio", category: " Categoría",
                     };
                     return (
                       <div key={s.id} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
@@ -173,7 +173,7 @@ const GroupDashboard = () => {
                           s.status === "approved" ? "bg-primary/20 text-primary" :
                           "bg-destructive/20 text-destructive"
                         }`}>
-                          {s.status === "pending" ? "🟡 Pendiente" : s.status === "approved" ? "🟢 Aprobado" : "🔴 Rechazado"}
+                          {s.status === "pending" ? " Pendiente" : s.status === "approved" ? " Aprobado" : " Rechazado"}
                         </span>
                       </div>
                     );

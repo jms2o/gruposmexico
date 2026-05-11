@@ -141,7 +141,7 @@ const CityPage = () => {
                   to="/solicitar-evento"
                   className="btn-gold px-8 py-3.5 text-base rounded-full flex items-center gap-2"
                 >
-                  <span>✨</span> Publicar solicitud de grupo <ChevronRight className="w-4 h-4" />
+                  <span></span> Publicar solicitud de grupo <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
 

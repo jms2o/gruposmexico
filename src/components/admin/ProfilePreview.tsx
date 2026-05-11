@@ -57,7 +57,7 @@ const ProfilePreview = ({ profileId }: { profileId: string }) => {
       {/* How the profile would look publicly */}
       <div className="bg-card border-2 border-gold/30 rounded-2xl overflow-hidden">
         <div className="bg-gold/10 px-4 py-2 text-center">
-          <p className="font-body text-xs font-semibold text-gold">👁 Vista previa — Así se vería el perfil publicado</p>
+          <p className="font-body text-xs font-semibold text-gold"> Vista previa — Así se vería el perfil publicado</p>
         </div>
 
         {/* Hero */}
@@ -135,7 +135,7 @@ const ProfilePreview = ({ profileId }: { profileId: string }) => {
               <div key={p.id} className="relative rounded-xl overflow-hidden aspect-square">
                 <img src={p.content?.url} alt="" className="w-full h-full object-cover" />
                 <span className={`absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] font-bold ${p.status === "approved" ? "bg-primary/90 text-primary-foreground" : p.status === "rejected" ? "bg-destructive/90 text-destructive-foreground" : "bg-gold/90 text-accent-foreground"}`}>
-                  {p.status === "approved" ? "✓" : p.status === "rejected" ? "✗" : "⏳"}
+                  {p.status === "approved" ? "✓" : p.status === "rejected" ? "✗" : ""}
                 </span>
               </div>
             ))}
@@ -161,7 +161,7 @@ const ProfilePreview = ({ profileId }: { profileId: string }) => {
                     <video src={url} controls className="w-full h-full object-cover" />
                   )}
                   <span className={`absolute top-2 right-2 px-1.5 py-0.5 rounded text-[10px] font-bold ${v.status === "approved" ? "bg-primary/90 text-primary-foreground" : v.status === "rejected" ? "bg-destructive/90 text-destructive-foreground" : "bg-gold/90 text-accent-foreground"}`}>
-                    {v.status === "approved" ? "✓" : v.status === "rejected" ? "✗" : "⏳"}
+                    {v.status === "approved" ? "✓" : v.status === "rejected" ? "✗" : ""}
                   </span>
                 </div>
               );

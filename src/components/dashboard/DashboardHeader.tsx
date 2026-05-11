@@ -163,7 +163,7 @@ const DashboardHeader = ({ profile, mainPhotoUrl, onSignOut, onRefetch }: Props)
               <span className="hidden sm:inline px-2 py-0.5 rounded-md bg-muted text-muted-foreground font-body text-xs whitespace-nowrap">Editable</span>
             </div>
             <div className="flex items-center gap-1 text-gold font-body text-sm">
-              ★★★★★ <span className="text-muted-foreground ml-1">(# eventos)</span>
+               <span className="text-muted-foreground ml-1">(# eventos)</span>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1.5">

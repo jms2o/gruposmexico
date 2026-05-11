@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { stripEmojisDeep } from "@/lib/text";
 
 function extractYtId(url: string) {
   const m = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/);
@@ -19,7 +20,7 @@ const SoundPackagesPage = () => {
     queryKey: ["sound-packages-public"],
     queryFn: async () => {
       const { data } = await supabase.from("sound_packages").select("*").eq("visible", true).order("sort_order");
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
   });
 
@@ -27,7 +28,7 @@ const SoundPackagesPage = () => {
     queryKey: ["all-package-photos"],
     queryFn: async () => {
       const { data } = await supabase.from("package_photos").select("*").order("sort_order");
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
   });
 
@@ -35,7 +36,7 @@ const SoundPackagesPage = () => {
     queryKey: ["all-package-videos"],
     queryFn: async () => {
       const { data } = await supabase.from("package_videos").select("*").order("sort_order");
-      return data || [];
+      return stripEmojisDeep(data || []);
     },
   });
 
@@ -143,7 +144,7 @@ const SoundPackagesPage = () => {
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {photos.length > 0 && (
                           <div>
-                            <h3 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">📷 Galería</h3>
+                            <h3 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">Galería</h3>
                             <div className="grid grid-cols-2 gap-3">
                               {photos.map((p: any, pi: number) => (
                                 <div key={p.id} className={`rounded-2xl overflow-hidden gold-border group ${pi === 0 ? "col-span-2" : ""}`}>
@@ -155,7 +156,7 @@ const SoundPackagesPage = () => {
                         )}
                         {videos.length > 0 && (
                           <div>
-                            <h3 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">🎬 Videos</h3>
+                            <h3 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">Videos</h3>
                             <div className="space-y-4">
                               {videos.map((v: any) => {
                                 const ytId = v.youtube_url ? extractYtId(v.youtube_url) : null;

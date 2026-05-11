@@ -70,7 +70,7 @@ const Footer = () => {
 
         <div className="border-t border-white/10 pt-8 text-center">
           <p className="text-xs text-white/25">
-            {getFooter("copyright", "© 2026 GruposMéxico. Todos los derechos reservados.")}
+            {getFooter("copyright", " 2026 GruposMéxico. Todos los derechos reservados.")}
           </p>
         </div>
       </div>
